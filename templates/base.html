@@ -1,0 +1,43 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}Metasearch{% endblock %}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'assets/bootstrap/dist/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+{% include 'navigation.html' %}
+
+<body>
+
+{% block content %}{% endblock %}
+
+{% include 'footer.html' %}
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static 'assets/jquery/dist/jquery.js' %}"></script>
+{#    <script src="../../assets/js/vendor/popper.min.js"></script>#}
+<script src="{% static 'assets/bootstrap/dist/js/bootstrap.js' %}"></script>
+{#    <script src="../../assets/js/vendor/holder.min.js"></script>#}
+{#    <script>#}
+{#      Holder.addTheme('thumb', {#}
+{#        bg: '#55595c',#}
+{#        fg: '#eceeef',#}
+{#        text: 'Thumbnail'#}
+{#      });#}
+{#</script>#}
+</body>
+</html>
