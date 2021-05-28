@@ -3,31 +3,31 @@
         <div class="col-4 col-md">
           <h5>Miasta</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Warszawa</a></li>
-            <li><a class="text-muted" href="#">Kraków</a></li>
-            <li><a class="text-muted" href="#">Łódź</a></li>
-            <li><a class="text-muted" href="#">Trójmiasto</a></li>
-            <li><a class="text-muted" href="#">Katowice</a></li>
-            <li><a class="text-muted" href="#">Wrocław</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?city=Warszawa">Warszawa</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?city=Kraków">Kraków</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?city=Łódz">Łódź</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?city=Trójmiasto">Trójmiasto</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?city=Katowice">Katowice</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?city=Wrocław">Wrocław</a></li>
           </ul>
         </div>
         <div class="col-4 col-md">
           <h5>Nieruchomość</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Dom</a></li>
-            <li><a class="text-muted" href="#">Mieszkanie</a></li>
-            <li><a class="text-muted" href="#">Wynajem</a></li>
-            <li><a class="text-muted" href="#">Działki</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?type=house">Dom</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?type=flat">Mieszkanie</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?type=rent">Wynajem</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?type=plot">Działki</a></li>
           </ul>
         </div>
         <div class="col-4 col-md">
           <h5>Strony</h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Otodom.pl</a></li>
-            <li><a class="text-muted" href="#">Gratka.pl</a></li>
-            <li><a class="text-muted" href="#">Domiporta.pl</a></li>
-            <li><a class="text-muted" href="#">Olx.pl</a></li>
-            <li><a class="text-muted" href="#">Nieruchomosci-online.pl</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?site=otodom.pl">Otodom.pl</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?site=gratka.pl">Gratka.pl</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?site=domiporta.pl">Domiporta.pl</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?site=olx.pl">Olx.pl</a></li>
+            <li><a class="text-muted" href="{% url 'search' %}?site=nieruchomosci-online.pl">Nieruchomosci-online.pl</a></li>
           </ul>
         </div>
       </div>

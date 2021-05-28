@@ -1,17 +1,25 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Start</a>
+    <a class="navbar-brand" href="{% url 'index' %}">Start</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Wyszukiwarka</a>
+                <a class="nav-link" href="{% url 'search' %}">Wyszukiwarka</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">O nas</a>
+                <a class="nav-link" href="{% url 'about' %}">O nas</a>
             </li>
         </ul>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logowanie</button>
+        <div class="btn-group">
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">Logowanie</a>
+            <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'logout' %}">Wyloguj się</a>
+            </div>
+        </div>
     </div>
 </nav>
