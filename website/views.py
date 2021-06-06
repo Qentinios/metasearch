@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 
-from website.forms import NewUserForm, LoginUserForm
+from website.forms import NewUserForm, LoginUserForm, SearchForm
 
 
 class HomeView(TemplateView):
@@ -14,8 +14,20 @@ class AboutView(TemplateView):
     template_name = 'about.html'
 
 
-class SearchView(TemplateView):
+class SearchView(FormView):
     template_name = 'search.html'
+    form_class = SearchForm
+
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs['get'] = self.request.GET
+        return form_kwargs
+
+    def form_valid(self, form):
+        print(form.data)  # TODO: search
+        context_data = self.get_context_data(form=form)
+        context_data['results'] = 'TEST'
+        return self.render_to_response(context_data)
 
 
 def register_request(request):

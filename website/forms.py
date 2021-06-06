@@ -1,9 +1,11 @@
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
+from website.models import Offer
 
-# Create your forms here.
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -37,3 +39,41 @@ class LoginUserForm(AuthenticationForm):
 
         self.fields['username'].label = 'Nazwa użytkownika'
         self.fields['password'].label = 'Hasło'
+
+
+class SearchForm(ModelForm):
+    price_min = forms.IntegerField(min_value=0, required=False)
+    price_max = forms.IntegerField(min_value=0, required=False)
+    area_min = forms.IntegerField(min_value=0, required=False)
+    area_max = forms.IntegerField(min_value=0, required=False)
+
+    class Meta:
+        model = Offer
+        fields = ('type', 'website', 'area_min', 'area_max', 'rooms', 'price_min', 'price_max', 'city')
+
+    def __init__(self, get=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-element row'
+        self.helper.wrapper_class = 'col-md-2'
+        self.helper.label_class = 'control-label'
+        self.helper.field_class = 'control-form'
+
+        self.fields['rooms'].required = False
+        self.fields['city'].required = False
+        self.fields['website'].required = False
+
+        city = get.get('city', None)
+        if get.get('city', None):
+            self.fields['city'].initial = city
+
+        type = get.get('type', None)
+        if get.get('type', None):
+            self.fields['type'].initial = type
+        else:
+            self.fields['type'].initial = Offer.TYPES.flat
+
+        website = get.get('site', None)
+        if get.get('site', None):
+            self.fields['website'].initial = website

@@ -1,9 +1,57 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load static crispy_forms_tags %}
 
 {% block content %}
-<div class="text-center">
-    <p>Search</p>
-</div>
+    <div class="text-center">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                {{ form.type|as_crispy_field }}
+                {{ form.city|as_crispy_field }}
+                <div id="div_id_price" class="form-group col-lg-4">
+                    <label for="id_price_min" class="control-label">
+                        Cena</label>
+                    <div class="row">
+                        <div class="col">
+                            <input value="{{ form.data.price_min }}" name="price_min" id="id_price_min" type="number" class="numberinput form-control" min="0" step="50000" placeholder="100000">
+                        </div>
+                        -
+                        <div class="col">
+                            <input value="{{ form.data.price_max }}" name="price_max" id="id_price_max" type="number" class="numberinput form-control" min="0" step="50000" placeholder="200000">
+                        </div>
+                    </div>
+                </div>
+                <div id="div_id_rooms" class="form-group col-lg-1">
+                    <label for="id_rooms" class="control-label">
+                        Pokoje</label>
+                    <div class="control-form">
+                        <input value="{{ form.data.rooms }}" type="number" name="rooms" placeholder="4" class="numberinput form-control" id="id_rooms">
+                    </div>
+                </div>
+                <div id="div_id_area" class="form-group col-lg-2">
+                    <label for="id_area_min" class="control-label">
+                        Powierzchnia</label>
+                    <div class="row">
+                        <div class="col">
+                            <input value="{{ form.data.area_min }}" name="area_min" id="id_area_min" type="number" class="numberinput form-control" placeholder="40">
+                        </div>
+                        -
+                        <div class="col">
+                            <input value="{{ form.data.area_min }}" name="area_max" id="id_area_max" type="number" class="numberinput form-control" placeholder="80">
+                        </div>
+                    </div>
+                </div>
+                {{ form.website|as_crispy_field }}
+                <div id="div_id_submit" class="form-group col-lg-2">
+                    <label for="submit" class="control-label">
+                        <span class="asteriskField">&nbsp</span> </label>
+                    <div class="control-form">
+                        <button type="submit" class="btn btn-primary btn-block" id="submit">Szukaj</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {{ results }}
+    </div>
 {% endblock %}
