@@ -1,0 +1,37 @@
+[
+  {
+    "model": "website.offerwebsite",
+    "pk": 1,
+    "fields": {
+      "name": "Otodom.pl"
+    }
+  },
+  {
+    "model": "website.offerwebsite",
+    "pk": 2,
+    "fields": {
+      "name": "Gratka.pl"
+    }
+  },
+  {
+    "model": "website.offerwebsite",
+    "pk": 3,
+    "fields": {
+      "name": "Domiporta.pl"
+    }
+  },
+  {
+    "model": "website.offerwebsite",
+    "pk": 4,
+    "fields": {
+      "name": "Olx.pl"
+    }
+  },
+  {
+    "model": "website.offerwebsite",
+    "pk": 5,
+    "fields": {
+      "name": "Nieruchomosci-online.pl"
+    }
+  },
+]

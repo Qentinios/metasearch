@@ -1,0 +1,44 @@
+[
+  {
+    "model": "website.offercity",
+    "pk": 1,
+    "fields": {
+      "name": "Warszawa"
+    }
+  },
+  {
+    "model": "website.offercity",
+    "pk": 2,
+    "fields": {
+      "name": "Kraków"
+    }
+  },
+  {
+    "model": "website.offercity",
+    "pk": 3,
+    "fields": {
+      "name": "Łódź"
+    }
+  },
+  {
+    "model": "website.offercity",
+    "pk": 4,
+    "fields": {
+      "name": "Gdańsk"
+    }
+  },
+  {
+    "model": "website.offercity",
+    "pk": 5,
+    "fields": {
+      "name": "Katowice"
+    }
+  },
+  {
+    "model": "website.offercity",
+    "pk": 6,
+    "fields": {
+      "name": "Wrocław"
+    }
+  }
+]
