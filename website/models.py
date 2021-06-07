@@ -39,8 +39,7 @@ class Offer(models.Model):
     area = models.DecimalField(verbose_name='Powierzchnia', decimal_places=2, max_digits=6,
                                validators=[MinValueValidator(1)])
     rooms = models.IntegerField(verbose_name='Ilość pokoi', validators=[MinValueValidator(1)])
-    price = models.DecimalField(verbose_name='Cena', decimal_places=2, max_digits=8,
-                                validators=[MinValueValidator(1)])
+    price = models.IntegerField(verbose_name='Cena', validators=[MinValueValidator(1)])
     created = models.DateTimeField(verbose_name='Utworzono', default=timezone.now)
     modified = models.DateTimeField(verbose_name='Ostatnia edycja', null=True, blank=True)
     photos = models.ManyToManyField(OfferPhoto, verbose_name="Zdjęcia")

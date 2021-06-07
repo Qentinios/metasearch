@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 
+from scrappers.tasks import Search
 from website.forms import NewUserForm, LoginUserForm, SearchForm
 
 
@@ -24,9 +25,11 @@ class SearchView(FormView):
         return form_kwargs
 
     def form_valid(self, form):
-        print(form.data)  # TODO: search
+        search = Search(form.cleaned_data)
+        offers = search.search()
+
         context_data = self.get_context_data(form=form)
-        context_data['results'] = 'TEST'
+        context_data['offers'] = offers
         return self.render_to_response(context_data)
 
 

@@ -38,7 +38,7 @@
                         </div>
                         -
                         <div class="col">
-                            <input value="{{ form.data.area_min }}" name="area_max" id="id_area_max" type="number" class="numberinput form-control" placeholder="80">
+                            <input value="{{ form.data.area_max }}" name="area_max" id="id_area_max" type="number" class="numberinput form-control" placeholder="80">
                         </div>
                     </div>
                 </div>
@@ -52,6 +52,32 @@
                 </div>
             </div>
         </form>
-        {{ results }}
+        {% if offers %}
+            <table class="table mt-5">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tytuł</th>
+                    <th scope="col">Cena</th>
+                    <th scope="col">Cena za m2</th>
+                    <th scope="col">Powierzchnia</th>
+                    <th scope="col">Miasto</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for offer in offers %}
+                    <tr>
+                        <th scope="row"><a href="{{ offer.link }}"><button class="btn {% if forloop.counter > 3 %}btn-success{% else %}btn-danger{% endif %} btn-block offer-btn">{{ forloop.counter }}</button></a></th>
+                        <td>{{ offer.title }}</td>
+                        <td>{{ offer.price }}</td>
+                        <td>{{ offer.price_per_square_meter }}</td>
+                        <td>{{ offer.area }}</td>
+                        <td>{{ offer.city }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     </div>
 {% endblock %}
