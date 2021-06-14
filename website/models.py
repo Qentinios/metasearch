@@ -2,6 +2,7 @@ from datetime import datetime
 
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.urls import reverse_lazy
 from django.utils import timezone
 from model_utils import Choices
 
@@ -48,3 +49,7 @@ class Offer(models.Model):
     @property
     def price_per_square_meter(self):
         return int(self.price / self.area)
+
+    @property
+    def details_url(self):
+        return reverse_lazy('offer-details', kwargs={'pk': self.pk})

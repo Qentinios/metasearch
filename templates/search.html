@@ -68,7 +68,7 @@
 
                 {% for offer in offers %}
                     <tr>
-                        <th scope="row"><a href="{{ offer.link }}"><button class="btn {% if forloop.counter > 3 %}btn-success{% else %}btn-danger{% endif %} btn-block offer-btn">{{ forloop.counter }}</button></a></th>
+                        <th scope="row"><a href="{{ offer.details_url }}" target="_blank"><button class="btn {% if forloop.counter > 3 %}btn-success{% else %}btn-danger{% endif %} btn-block offer-btn">{{ forloop.counter }}</button></a></th>
                         <td>{{ offer.title }}</td>
                         <td>{{ offer.price }}</td>
                         <td>{{ offer.price_per_square_meter }}</td>

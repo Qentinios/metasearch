@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, DetailView
 
 from scrappers.tasks import Search
 from website.forms import NewUserForm, LoginUserForm, SearchForm
+from website.models import Offer
 
 
 class HomeView(TemplateView):
@@ -31,6 +32,12 @@ class SearchView(FormView):
         context_data = self.get_context_data(form=form)
         context_data['offers'] = offers
         return self.render_to_response(context_data)
+
+
+class OfferDetailsView(DetailView):
+    template_name = 'offer.html'
+    model = Offer
+    queryset = Offer.objects.all()
 
 
 def register_request(request):

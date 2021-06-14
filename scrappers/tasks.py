@@ -22,15 +22,15 @@ class Search:
         if self.website:
             sites = [self.website.name]
         else:
-            sites = OfferWebsite.objects.values('name')
+            sites = OfferWebsite.objects.values_list('name', flat=True)
 
         if 'Otodom.pl' in sites:
-            from sites.otodom import scan_otodom
+            from scrappers.sites.otodom import scan_otodom
             scan_otodom(type=self.type, area_min=self.area_min, area_max=self.area_max, rooms=self.rooms,
                         price_min=self.price_min, price_max=self.price_max, city=self.city)
 
         if 'Domiporta.pl' in sites:
-            from sites.domiporta import scan_domiporta
+            from scrappers.sites.domiporta import scan_domiporta
             scan_domiporta(type=self.type, area_min=self.area_min, area_max=self.area_max, rooms=self.rooms,
                            price_min=self.price_min, price_max=self.price_max, city=self.city)
 

@@ -11,6 +11,7 @@ ogłoszeniowych z nieruchomościami i zwróci scalone wyniki.
 Wymagania
 
 - python3
+- chrome webdriver
 
 Instalacja wymaganych pakietów
 
@@ -25,6 +26,10 @@ Załadowanie danych
 `./manage.py loaddata cities.json`
 
 `./manage.py loaddata websites.json`
+
+Instalacja Webdriver
+
+https://chromedriver.chromium.org/getting-started
 
 ##Serwer
 
