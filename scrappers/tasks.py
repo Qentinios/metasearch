@@ -1,3 +1,5 @@
+from scrappers.sites.olx import olx_add_offers, olx_get_offers, olx_get_response
+from scrappers.sites.otodom import otodom_get_response, otodom_get_offers, otodom_add_offers
 from website.models import OfferWebsite, Offer
 
 
@@ -25,14 +27,20 @@ class Search:
             sites = OfferWebsite.objects.values_list('name', flat=True)
 
         if 'Otodom.pl' in sites:
-            from scrappers.sites.otodom import scan_otodom
-            scan_otodom(type=self.type, area_min=self.area_min, area_max=self.area_max, rooms=self.rooms,
-                        price_min=self.price_min, price_max=self.price_max, city=self.city)
+            response = otodom_get_response(type=self.type, area_min=self.area_min, area_max=self.area_max,
+                                           rooms=self.rooms, price_min=self.price_min, price_max=self.price_max,
+                                           city=self.city)
+            offers = otodom_get_offers(response)
+            print(len(offers))
+            otodom_add_offers(self.type, self.city, offers)
 
-        if 'Domiporta.pl' in sites:
-            from scrappers.sites.domiporta import scan_domiporta
-            scan_domiporta(type=self.type, area_min=self.area_min, area_max=self.area_max, rooms=self.rooms,
-                           price_min=self.price_min, price_max=self.price_max, city=self.city)
+        if 'Olx.pl' in sites:
+            response = olx_get_response(type=self.type, area_min=self.area_min, area_max=self.area_max,
+                                        rooms=self.rooms, price_min=self.price_min, price_max=self.price_max,
+                                        city=self.city)
+            offers = olx_get_offers(response)
+            print(len(offers))
+            olx_add_offers(self.type, self.city, offers)
 
         offers = Offer.objects.filter(type=self.type).select_related('city')
         if self.city:
@@ -46,6 +54,6 @@ class Search:
         if self.area_min:
             offers = offers.filter(area__gte=self.area_min)
         if self.area_max:
-            offers = offers.filter(area__gte=self.area_max)
+            offers = offers.filter(area__lte=self.area_max)
 
         return offers.order_by('-price')

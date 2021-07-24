@@ -61,7 +61,6 @@ class SearchForm(ModelForm):
         self.helper.field_class = 'control-form'
 
         self.fields['rooms'].required = False
-        self.fields['city'].required = False
         self.fields['website'].required = False
 
         city = get.get('city', None)
