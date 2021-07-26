@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -108,7 +109,9 @@ def otodom_get_offers(response):
             n += char
         area = n
 
-        offers.append({'title': title, 'price': price, 'area': area, 'rooms': rooms, 'address': address})
+        link = 'https://otodom.pl' + offer['href']
+
+        offers.append({'title': title, 'price': price, 'area': area, 'rooms': rooms, 'address': address, 'link': link})
 
     return offers
 
@@ -117,6 +120,25 @@ def otodom_add_offers(type, city, offers):
     website = OfferWebsite.objects.get(name='Otodom.pl')
 
     for offer in offers:
-        offer_obj, created = Offer.objects\
-            .get_or_create(type=type, city=city, website=website, title=offer.get('title'), price=offer.get('price'),
-                           area=offer.get('area'), rooms=offer.get('rooms'), address=offer.get('address'))
+        offer_obj = Offer.objects.filter(type=type, city=city, website=website, link=offer.get('link'))
+
+        if offer_obj.exists():
+            offer_obj = offer_obj.get()
+            properties = ['title', 'price', 'area', 'rooms', 'address']
+
+            for prop in properties:
+                modified = False
+                new_value = offer.get(prop)
+                old_value = getattr(offer_obj, prop)
+
+                if old_value != new_value:
+                    modified = True
+                    setattr(offer_obj, prop, new_value)
+
+                if modified:
+                    offer_obj.modified = datetime.now()
+                    offer_obj.save()
+        else:
+            Offer.objects.create(type=type, city=city, website=website, title=offer.get('title'), price=offer.get('price'),
+                                 area=offer.get('area'), rooms=offer.get('rooms'), address=offer.get('address'),
+                                 link=offer.get('link'))

@@ -1,1 +1,65 @@
-{{ object.title }}
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-5">
+            <div class="offer-info-box mt-0">
+                <h5>{{ offer.get_type_display }}</h5>
+                <p class="mb-0">{{ offer.title }}</p>
+            </div><!-- / offer-info-box -->
+
+            <div class="offer-info-box">
+                <p><b>Miasto:</b> {{ offer.city }}</p>
+                <p><b>Ilość pokoi:</b> {{ offer.rooms }}</p>
+                <p><b>Powierzchnia:</b> {{ offer.area|floatformat:"0" }}</p>
+                <p><b>Adres:</b> {{ offer.address }}</p>
+                <p class="mb-0"><b>Cena:</b> {{ offer.price }} zł</p>
+            </div><!-- / offer-info-box -->
+
+            <div class="offer-info-box mt-0 mb-0">
+                <p class="mb-0">
+                    <span class="fw-bold mr-10 va-middle hide-mobile">Otwórz ogłoszenie w nowej karcie:</span>
+                    <a href="{{ offer.link }}" class="btn btn-circle btn-primary float-right" target="_blank">Open offer</a>
+                </p>
+            </div><!-- / project-info-box -->
+        </div><!-- / column -->
+
+        <div class="col-md-7">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for photo in offer.photos.all %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter }}" class="{% if forloop.first %}active{% endif %}"></li>
+                    {% empty %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for photo in offer.photos.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img class="d-block w-100" src="https://via.placeholder.com/400x200/FFB6C1/000000" alt="First slide">
+                        </div>
+                    {% empty %}
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="https://via.placeholder.com/400x200/FFB6C1/000000" alt="First slide">
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="offer-info-box">
+                <p><b>Ze strony:</b> {{ offer.website }}</p>
+                <p><b>Utworzono:</b> {{ offer.created }}</p>
+                <p><b>Zmodyfikowano:</b> {{ offer.modified | default:'' }}</p>
+            </div><!-- / offer-info-box -->
+        </div><!-- / column -->
+    </div>
+{% endblock %}

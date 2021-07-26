@@ -1,7 +1,8 @@
+from datetime import datetime
+
 import requests
 import unidecode
 from bs4 import BeautifulSoup
-from django.utils.http import urlencode
 
 from scrappers.helpers import extract_number_from_string
 from website.models import Offer, OfferWebsite
@@ -91,7 +92,8 @@ def olx_get_offers(response):
                     else:
                         rooms = extract_number_from_string(rooms)
 
-            offers.append({'title': title, 'price': price, 'area': area, 'rooms': rooms, 'address': address})
+            offers.append({'title': title, 'price': price, 'area': area, 'rooms': rooms, 'address': address,
+                           'link': link})
 
     return offers
 
@@ -100,7 +102,26 @@ def olx_add_offers(type, city, offers):
     website = OfferWebsite.objects.get(name='Olx.pl')
 
     for offer in offers:
-        offer_obj, created = Offer.objects.\
-            get_or_create(type=type, city=city, website=website, title=offer.get('title'), price=offer.get('price'),
-                          area=offer.get('area'), rooms=offer.get('rooms'), address=offer.get('address'))
+        offer_obj = Offer.objects.filter(type=type, city=city, website=website, link=offer.get('link'))
+
+        if offer_obj.exists():
+            offer_obj = offer_obj.get()
+            properties = ['title', 'price', 'area', 'rooms', 'address']
+
+            for prop in properties:
+                modified = False
+                new_value = offer.get(prop)
+                old_value = getattr(offer_obj, prop)
+
+                if old_value != new_value:
+                    modified = True
+                    setattr(offer_obj, prop, new_value)
+
+                if modified:
+                    offer_obj.modified = datetime.now()
+                    offer_obj.save()
+        else:
+            Offer.objects.create(type=type, city=city, website=website, title=offer.get('title'), price=offer.get('price'),
+                                 area=offer.get('area'), rooms=offer.get('rooms'), address=offer.get('address'),
+                                 link=offer.get('link'))
 
