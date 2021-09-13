@@ -31,7 +31,6 @@ class Search:
                                            rooms=self.rooms, price_min=self.price_min, price_max=self.price_max,
                                            city=self.city)
             offers = otodom_get_offers(response)
-            print(len(offers))
             otodom_add_offers(self.type, self.city, offers)
 
         if 'Olx.pl' in sites:
@@ -39,7 +38,6 @@ class Search:
                                         rooms=self.rooms, price_min=self.price_min, price_max=self.price_max,
                                         city=self.city)
             offers = olx_get_offers(response)
-            print(len(offers))
             olx_add_offers(self.type, self.city, offers)
 
         offers = Offer.objects.filter(type=self.type).select_related('city')
